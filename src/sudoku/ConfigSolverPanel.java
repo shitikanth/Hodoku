@@ -476,10 +476,10 @@ public class ConfigSolverPanel extends javax.swing.JPanel implements ListDragAnd
 		CheckNode root = new CheckNode();
 		for (int i = 0; i < steps.length; i++) {
 			@SuppressWarnings("unchecked")
-			Enumeration<CheckNode> en = (Enumeration<CheckNode>) root.children();
+			Enumeration en = root.children();
 			CheckNode act = null;
 			while (en.hasMoreElements()) {
-				act = en.nextElement();
+				act = (CheckNode) en.nextElement();
 				if (act.getCategory() == steps[i].getCategory()) {
 					break;
 				}
