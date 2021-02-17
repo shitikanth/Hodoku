@@ -121,6 +121,7 @@ public class ConfigGeneralPanel extends javax.swing.JPanel {
 		showFilterOnGivens = new javax.swing.JCheckBox();
 		autoHighlight = new javax.swing.JCheckBox();
 		drawExtraBoxesCheckBox = new javax.swing.JCheckBox();
+		hjklNavigationCheckBox = new javax.swing.JCheckBox();
 
 		java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("intl/ConfigGeneralPanel");
 		jPanel2.setBorder(javax.swing.BorderFactory
@@ -306,6 +307,8 @@ public class ConfigGeneralPanel extends javax.swing.JPanel {
 				.getString("ConfigGeneralPanel.drawExtraBoxesCheckBox.mnemonic").charAt(0));
 		drawExtraBoxesCheckBox.setText(bundle.getString("ConfigGeneralPanel.drawExtraBoxesCheckBox.text"));
 
+		hjklNavigationCheckBox.setText(bundle.getString("ConfigGeneralPanel.hjklNavigationCheckBox.text"));
+
 		javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
 		jPanel4.setLayout(jPanel4Layout);
 		jPanel4Layout.setHorizontalGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,7 +325,8 @@ public class ConfigGeneralPanel extends javax.swing.JPanel {
 								.addComponent(jLabel1))
 						.addComponent(singleClickModeCheckBox).addComponent(onlySmallFiltersCheckBox)
 						.addComponent(editModeAutoAdvanceCheckBox).addComponent(showFilterOnGivens)
-						.addComponent(autoHighlight)).addContainerGap(26, Short.MAX_VALUE)));
+						.addComponent(autoHighlight).addComponent(hjklNavigationCheckBox))
+						.addContainerGap(26, Short.MAX_VALUE)));
 		jPanel4Layout.setVerticalGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanel4Layout.createSequentialGroup().addContainerGap().addComponent(drawExtraBoxesCheckBox)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -352,6 +356,8 @@ public class ConfigGeneralPanel extends javax.swing.JPanel {
 						.addComponent(showFilterOnGivens)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(autoHighlight)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(hjklNavigationCheckBox)
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -414,6 +420,7 @@ public class ConfigGeneralPanel extends javax.swing.JPanel {
 		Options.getInstance().setOnlySmallFilters(onlySmallFiltersCheckBox.isSelected());
 		Options.getInstance().setEditModeAutoAdvance(editModeAutoAdvanceCheckBox.isSelected());
 		Options.getInstance().setAutoHighlighting(autoHighlight.isSelected());
+		Options.getInstance().setUseHjklNavigation(hjklNavigationCheckBox.isSelected());
 		Options.getInstance().setHighlightingGivens(showFilterOnGivens.isSelected());
 		Options.getInstance().setDrawMode(drawExtraBoxesCheckBox.isSelected() ? 0 : 1);
 
@@ -480,6 +487,7 @@ public class ConfigGeneralPanel extends javax.swing.JPanel {
 			onlySmallCursorsCheckBox.setSelected(Options.ONLY_SMALL_CURSORS);
 			editModeAutoAdvanceCheckBox.setSelected(Options.EDIT_MODE_AUTO_ADVANCE);
 			autoHighlight.setSelected(Options.AUTO_HIGHLIGHTING);
+			hjklNavigationCheckBox.setSelected(Options.USE_HJKL_NAVIGATION);
 			showFilterOnGivens.setSelected(Options.HIGHLIGHT_GIVENS);
 
 			colorValuesCheckBox.setSelected(Options.COLOR_VALUES);
@@ -502,6 +510,7 @@ public class ConfigGeneralPanel extends javax.swing.JPanel {
 			drawExtraBoxesCheckBox.setSelected(Options.getInstance().getDrawMode() == 0);
 			editModeAutoAdvanceCheckBox.setSelected(Options.getInstance().isEditModeAutoAdvance());
 			autoHighlight.setSelected(Options.getInstance().isAutoHighlighting());
+			hjklNavigationCheckBox.setSelected(Options.getInstance().isUseHjklNavigation());
 			showFilterOnGivens.setSelected(Options.getInstance().isHighlightingGivens());
 
 			language = Options.getInstance().getLanguage();
@@ -617,6 +626,7 @@ public class ConfigGeneralPanel extends javax.swing.JPanel {
 	private javax.swing.JCheckBox showSudokuSolvedCheckBox;
 	private javax.swing.JCheckBox showWrongValuesCheckBox;
 	private javax.swing.JCheckBox toggleFilterAndOrCheckBox;
+	private javax.swing.JCheckBox hjklNavigationCheckBox;
 	// End of variables declaration//GEN-END:variables
 
 	/*

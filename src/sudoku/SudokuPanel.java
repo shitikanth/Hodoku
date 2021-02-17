@@ -1236,7 +1236,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 		boolean clearSelectedRegion = true;
 		switch (keyCode) {
 		case KeyEvent.VK_DOWN:
-			
+		case KeyEvent.VK_J:
 			if ((modifiers & KeyEvent.CTRL_DOWN_MASK) != 0 && 
 				(modifiers & KeyEvent.SHIFT_DOWN_MASK) != 0	&& 
 				getShowHintCellValue() != 0) {
@@ -1276,6 +1276,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 
 			break;
 		case KeyEvent.VK_UP:
+		case KeyEvent.VK_K:
 			if ((modifiers & KeyEvent.CTRL_DOWN_MASK) != 0 && 
 				(modifiers & KeyEvent.SHIFT_DOWN_MASK) != 0 && 
 				getShowHintCellValue() != 0) {
@@ -1313,6 +1314,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 
 			break;
 		case KeyEvent.VK_RIGHT:
+		case KeyEvent.VK_L:
 			if ((modifiers & KeyEvent.CTRL_DOWN_MASK) != 0 && 
 				(modifiers & KeyEvent.SHIFT_DOWN_MASK) != 0 &&
 				getShowHintCellValue() != 0) {
@@ -1350,6 +1352,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 
 			break;
 		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_H:
 			if ((modifiers & KeyEvent.CTRL_DOWN_MASK) != 0 && 
 				(modifiers & KeyEvent.SHIFT_DOWN_MASK) != 0	&& 
 				getShowHintCellValue() != 0) {
@@ -1819,7 +1822,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 
 		switch (mode) {
 		case KeyEvent.VK_DOWN:
-			
+		case KeyEvent.VK_J:
 			// let's start with the next row
 			row++;
 			if (row == Sudoku2.UNITS) {
@@ -1841,6 +1844,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 			
 			break;
 		case KeyEvent.VK_UP:
+		case KeyEvent.VK_K:
 			// let's start with the previous row
 			row--;
 			if (row < 0) {
@@ -1861,6 +1865,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 			}
 			break;
 		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_H:
 			// lets start left
 			index--;
 			if (index < 0) {
@@ -1880,6 +1885,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 			
 			break;
 		case KeyEvent.VK_RIGHT:
+		case KeyEvent.VK_L:
 			// lets start right
 			index++;
 			if (index >= sudoku.getCells().length) {

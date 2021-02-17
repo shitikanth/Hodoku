@@ -445,6 +445,7 @@ public final class Options {
 	public static final boolean AUTO_HIGHLIGHTING = false;
 	public static final boolean COLORS_VISIBLE = true;
 	public static final boolean HIGHLIGHT_GIVENS = false;
+	public static final boolean USE_HJKL_NAVIGATION = false;
 	private boolean showCandidates = SHOW_CANDIDATES;
 	private boolean showCandidateHighlight = SHOW_CANDIDATE_HIGHLIGHT;
 	private boolean showWrongValues = SHOW_WRONG_VALUES;
@@ -479,6 +480,7 @@ public final class Options {
 	private boolean isAutoHighlighting = AUTO_HIGHLIGHTING;
 	private boolean isColoringVisible = COLORS_VISIBLE;
 	private boolean isHighlightingGivens = HIGHLIGHT_GIVENS;
+	private boolean useHjklNavigation = USE_HJKL_NAVIGATION;
 	// Clipboard
 	public static final boolean USE_ZERO_INSTEAD_OF_DOT = false; // as the name says...
 	private boolean useZeroInsteadOfDot = USE_ZERO_INSTEAD_OF_DOT;
@@ -2490,6 +2492,14 @@ public final class Options {
 	
 	public boolean isAutoHighlighting() {
 		return isAutoHighlighting;
+	}
+
+	public void setUseHjklNavigation(boolean useHjklNavigation) {
+		this.useHjklNavigation = useHjklNavigation;
+	}
+
+	public boolean isUseHjklNavigation() {
+		return useHjklNavigation;
 	}
 	
 	public boolean isColoringVisible() {
