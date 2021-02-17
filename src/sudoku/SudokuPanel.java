@@ -780,18 +780,11 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 			// the selected cell(s) must be set to cand
 			if (sudoku.getValue(index) == 0) {
 				if (cellSelection.isEmpty()) {
-					
-					int showHintCellValue = getShowHintCellValue();
-					if (sudoku.getAnzCandidates(index, !showCandidates) == 1) {
-						// Naked single -> set it!
-						int actCand = sudoku.getAllCandidates(index, !showCandidates)[0];
-						setCell(dto.row, dto.col, actCand);
+					boolean changed = solveSingles(dto.row, dto.col);
+					if (changed) {
 						return true;
-					} else if (showHintCellValue != 0 && isHiddenSingle(showHintCellValue, dto.row, dto.col)) {
-						// Hidden Single -> it
-						setCell(dto.row, dto.col, showHintCellValue);
-						return true;
-					} else if (dto.candidate != -1) {
+					}
+					if (dto.candidate != -1) {
 						// set candidate
 						// (only if that candidate is still set in the cell)
 						if (sudoku.isCandidate(index, dto.candidate, !showCandidates)) {
@@ -854,20 +847,11 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 		} else {
 			
 			if (sudoku.getValue(index) == 0) {
-				
-				int showHintCellValue = getShowHintCellValue();
-				if (sudoku.getAnzCandidates(index, !showCandidates) == 1) {
-					// Naked single -> set it!
-					int actCand = sudoku.getAllCandidates(index, !showCandidates)[0];
-					setCell(dto.row, dto.col, actCand);
-					setCandidateFilterByGiven(dto.row, dto.col);
+				boolean changed = solveSingles(dto.row, dto.col);
+				if (changed) {
 					return true;
-				} else if (showHintCellValue != 0 && isHiddenSingle(showHintCellValue, dto.row, dto.col)) {
-					// Hidden Single -> it
-					setCell(dto.row, dto.col, showHintCellValue);
-					setCandidateFilterByGiven(dto.row, dto.col);
-					return true;
-				} else if (dto.candidate != -1) {
+				}
+				if (dto.candidate != -1) {
 					// candidate double clicked -> set it
 					// (only if that candidate is still set in the cell)
 					if (sudoku.isCandidate(index, dto.candidate, !showCandidates)) {
@@ -1454,20 +1438,7 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 			
 			break;
 		case KeyEvent.VK_ENTER: {
-			int index = Sudoku2.getIndex(getActiveRow(), getActiveCol());
-			if (sudoku.getValue(index) == 0) {
-				int showHintCellValue = getShowHintCellValue();
-				if (sudoku.getAnzCandidates(index, !showCandidates) == 1) {
-					// Naked single -> set it!
-					int actCand = sudoku.getAllCandidates(index, !showCandidates)[0];
-					setCell(getActiveRow(), getActiveCol(), actCand);
-					changed = true;
-				} else if (showHintCellValue != 0 && isHiddenSingle(showHintCellValue, getActiveRow(), getActiveCol())) {
-					// Hidden Single -> it
-					setCell(getActiveRow(), getActiveCol(), showHintCellValue);
-					changed = true;
-				}
-			}
+			changed = solveSingles(getActiveRow(), getActiveCol());
 		}
 			break;
 		case KeyEvent.VK_9:
@@ -1731,6 +1702,26 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 		updateCellZoomPanel();
 		mainFrame.check();
 		repaint();
+	}
+
+	private boolean solveSingles(int row, int column) {
+		int index = Sudoku2.getIndex(row, column);
+		if (sudoku.getValue(index) == 0) {
+			if (sudoku.getAnzCandidates(index, !showCandidates) == 1) {
+				// Naked single -> set it!
+				int cand = sudoku.getAllCandidates(index, !showCandidates)[0];
+				setCell(row, column, cand);
+				return true;
+			} else {
+				// Hidden Single -> it
+				int cand = isHiddenSingle(row, column);
+				if (cand != 0) {
+					setCell(row, column, cand);
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -3903,6 +3894,26 @@ public class SudokuPanel extends javax.swing.JPanel implements Printable {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * Checks whether the given cell has a Hidden Single and returns that candidate.
+	 *
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	private int isHiddenSingle(int row, int col) {
+		sudoku.rebuildInternalData();
+		SudokuStepFinder finder = SudokuSolverFactory.getDefaultSolverInstance().getStepFinder();
+		List<SolutionStep> steps = finder.findAllHiddenSingles(sudoku);
+		for (SolutionStep act : steps) {
+			if (act.getType() == SolutionType.HIDDEN_SINGLE &&
+			act.getIndices().get(0) == Sudoku2.getIndex(row, col)) {
+				return act.getValues().get(0);
+			}
+		}
+		return 0;
 	}
 
 	private boolean showCandidateHighlight() {
